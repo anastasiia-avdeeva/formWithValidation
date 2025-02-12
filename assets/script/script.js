@@ -15,6 +15,18 @@ const emailError = document.getElementById("emailError");
 const ageError = document.getElementById("ageError");
 const consentError = document.getElementById("consentError");
 
+const firstCharErrorMsg = "Имя должно начинаться с буквы!";
+const noNameErrorMsg = "Пожалуйста, введите имя";
+// const nameTooLongErrorMsg = "Длина имени не должна превышать 20 символов";
+const nameTooShortErrorMsg = "Длина имени не должна быть меньше 2 символов";
+const noEmailErrorMsg = "Пожалуйста, введите адрес электронной почты";
+const invalidEmailErrorMsg =
+  "Пожалуйста, введите верный адрес электронной почты";
+const noAgeErrorMsg = "Пожалуйста, введите возраст.";
+const invalidAgeErrorMsg = "Возраст не может быть меньше 1 или больше 110.";
+const noConsentErrorMsg =
+  "Пожалуйста, подтвердите согласие на обработку персональных данных.";
+
 function checkFirstChar(str) {
   const regex = /^[A-Za-zА-Яа-я]/;
   return str.length > 0 && !regex.test(str);
@@ -36,7 +48,7 @@ function changeNameOnInput() {
   const name = nameInput.value;
   if (checkFirstChar(name)) {
     nameInput.value = name.slice(1);
-    pasteMsg(nameError, "Имя должно начинаться с буквы!");
+    pasteMsg(nameError, firstCharErrorMsg);
     hideOrShowElem(nameError, false);
   } else {
     pasteMsg(nameError, "");
@@ -48,17 +60,17 @@ function validateName() {
   const name = nameInput.value;
   let valid = true;
   if (!name) {
-    pasteMsg(nameError, "Пожалуйста, введите имя");
+    pasteMsg(nameError, noNameErrorMsg);
     hideOrShowElem(nameError, false);
     valid = false;
   } else if (name.length < 2) {
-    pasteMsg(nameError, "Длина имени не должна быть меньше 2 символов");
+    pasteMsg(nameError, nameTooShortErrorMsg);
     hideOrShowElem(nameError, false);
     valid = false;
-  } else if (name.length > 20) {
-    pasteMsg(nameError, "Длина имени не должна быть больше 20 символов");
-    hideOrShowElem(nameError, false);
-    valid = false;
+    //   } else if (name.length > 20) {
+    //     pasteMsg(nameError, nameTooLongErrorMsg);
+    //     hideOrShowElem(nameError, false);
+    //     valid = false;
   } else {
     hideOrShowElem(nameError);
   }
@@ -72,11 +84,11 @@ function validateEmail() {
   valid = true;
 
   if (!email) {
-    pasteMsg(emailError, "Пожалуйста, введите адрес электронной почты");
+    pasteMsg(emailError, noEmailErrorMsg);
     hideOrShowElem(emailError, false);
     valid = false;
   } else if (!regex.test(email)) {
-    pasteMsg(emailError, "Пожалуйста, введите верный адрес электронной почты");
+    pasteMsg(emailError, invalidEmailErrorMsg);
     hideOrShowElem(emailError, false);
     valid = false;
   } else {
@@ -96,11 +108,11 @@ function validateAge() {
   let valid = true;
 
   if (!age) {
-    pasteMsg(ageError, "Пожалуйста, введите возраст!");
+    pasteMsg(ageError, noAgeErrorMsg);
     hideOrShowElem(ageError, false);
     valid = false;
   } else if (!ageInput.checkValidity()) {
-    pasteMsg(ageError, "Возраст не может быть меньше 1 или больше 110!");
+    pasteMsg(ageError, invalidAgeErrorMsg);
     hideOrShowElem(ageError, false);
     valid = false;
   } else {
@@ -115,20 +127,17 @@ function markChecked(evt) {
     sexChecked = true;
   } else if (evt.target.type === "checkbox") {
     consentChecked = consentCheckbox.checked;
-    toggleConsentErrorMsg();
+    toggleBtnsErrorMsg(consentChecked, consentError, noConsentErrorMsg);
   }
 }
 
-function toggleConsentErrorMsg() {
-  if (consentChecked) {
-    pasteMsg(consentError, "");
-    hideOrShowElem(consentError);
+function toggleBtnsErrorMsg(condition, element, msg) {
+  if (condition) {
+    pasteMsg(element, "");
+    hideOrShowElem(element);
   } else {
-    pasteMsg(
-      consentError,
-      "При отказе от обработки персональных данных, регистрация невозможна!"
-    );
-    hideOrShowElem(consentError, false);
+    pasteMsg(element, msg);
+    hideOrShowElem(element, false);
   }
 }
 
