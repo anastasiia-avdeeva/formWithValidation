@@ -1,0 +1,108 @@
+@import "./normalize.css";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+input {
+  cursor: pointer;
+}
+
+input:focus {
+  outline: none;
+}
+
+.main {
+  width: 70%;
+  min-width: 600px;
+  margin: 100px auto;
+  padding: 90px 80px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+  margin: 0px 0px 40px;
+  text-align: center;
+  font-size: 54px;
+}
+
+.reg-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  font-size: 35px;
+
+  &__field {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  &__field--row {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 20px;
+  }
+
+  &__input:not(.reg-form__input--radio, .reg-form__input--checkbox) {
+    height: 90px;
+  }
+
+  &__input {
+    padding: 20px;
+    border: 1px solid gray;
+    border-radius: 20px;
+  }
+
+  &__input::placeholder,
+  &__select:invalid {
+    font-style: italic;
+    opacity: 0.7;
+  }
+
+  &__select {
+    max-width: 100%;
+  }
+
+  &__select:invalid {
+    color: gray;
+  }
+
+  &__radio-groups {
+    display: flex;
+    justify-content: center;
+    gap: 5%;
+  }
+
+  &__radio-group {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  &__input--radio,
+  &__input--checkbox {
+    width: 30px;
+    height: 30px;
+  }
+}

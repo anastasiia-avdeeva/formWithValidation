@@ -3,125 +3,149 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <link rel="stylesheet" href="assets/style/style.css" />
+    <title>Форма регистрации</title>
   </head>
   <body>
-    <h1 class="title">Регистрация</h1>
-    <form action="" class="reg-form" name="regForm" id="regForm">
-      <div class="reg-form__field">
-        <label for="name" class="reg-form__label">Ваше имя:</label>
-        <input
-          type="text"
-          name="name"
-          id="name"
-          class="reg-form__input"
-          placeholder="Введите Ваше имя"
-          minlength="2"
-          maxlength="20"
-          required
-        />
-      </div>
-      <div class="reg-form__field">
-        <label for="email" class="reg-form__label"
-          >Ваша электронная почта:</label
-        >
-        <input
-          type="email"
-          name="email"
-          id="email"
-          class="reg-form__input"
-          placeholder="Введите Ваш email"
-          required
-        />
-      </div>
-      <div class="reg-form__field">
-        <label for="age" class="reg-form__label">Ваш возраст:</label>
-        <input
-          type="number"
-          name="age"
-          id="age"
-          class="reg-form__input"
-          placeholder="Введите Ваш возраст"
-          min="1"
-          max="110"
-        />
-      </div>
-      <div class="reg-form__field">
-        <p>Ваш пол:</p>
-        <div class="reg-form__radio-group">
-          <label for="female" class="reg-form__label">Женский</label>
+    <main class="main">
+      <h1 class="title">Регистрация</h1>
+      <form class="reg-form" name="regForm" id="regForm">
+        <div class="reg-form__field">
+          <label for="name" class="reg-form__label">Ваше имя:</label>
           <input
-            type="radio"
-            value="female"
-            name="sex"
-            id="female"
+            type="text"
+            name="name"
+            id="name"
             class="reg-form__input"
-            checked
-          />
-          <label for="male" class="reg-form__label">Мужской</label>
-          <input
-            type="radio"
-            value="male"
-            name="sex"
-            id="male"
-            class="reg-form__input"
+            placeholder="Введите Ваше имя"
+            minlength="2"
+            maxlength="20"
+            required
           />
         </div>
-      </div>
-      <div class="reg-form__field">
-        <label for="occupation" class="reg-form__label">Ваша профессия:</label>
-        <select name="occupation" id="occupationSelect" required>
-          <option value="" hidden disabled selected>
-            Выберете Вашу профессию
-          </option>
-          <option value="doctor">Медицинский работник</option>
-          <option value="programmer">Программист</option>
-          <option value="teacher">Работник в сфере образования</option>
-          <option value="designer">Дизайнер</option>
-          <option value="engineer">Инженер</option>
-          <option value="salesperson">Работник в сфере продаж</option>
-          <option value="other">Другое</option>
-        </select>
-      </div>
-      <div class="reg-form__field">
-        <label for="pass1" class="reg-form__label">Пароль:</label>
-        <input
-          type="password"
-          name="pass1"
-          id="pass1"
-          class="reg-form__input"
-          placeholder="Придумайте пароль"
-          minlength="8"
-          pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[1-9]).{8,}$"
-          required
-        />
-      </div>
-      <div class="reg-form__field">
-        <label for="pass2" class="reg-form__label">Подтверждение пароля:</label>
-        <input
-          type="password"
-          name="pass2"
-          id="pass2"
-          class="reg-form__input"
-          placeholder="Подтвердите пароль"
-          minlength="8"
-          pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[1-9]).{8,}$"
-          required
-        />
-      </div>
-      <div class="reg-form__field">
-        <input
-          type="checkbox"
-          name="consent"
-          id="consent"
-          class="reg-form__input"
-          required
-        />
-        <label for="consent"
-          >Я соглашаюсь на обработку персональных данных</label
-        >
-      </div>
-      <button type="submit" disabled>Зарегистрироваться</button>
-    </form>
+        <div class="reg-form__field">
+          <label for="email" class="reg-form__label"
+            >Ваша электронная почта:</label
+          >
+          <input
+            type="email"
+            name="email"
+            id="email"
+            class="reg-form__input"
+            placeholder="Введите Ваш email"
+            required
+          />
+        </div>
+        <div class="reg-form__field">
+          <label for="age" class="reg-form__label">Ваш возраст:</label>
+          <input
+            type="number"
+            name="age"
+            id="age"
+            class="reg-form__input"
+            placeholder="Введите Ваш возраст"
+            min="1"
+            max="110"
+          />
+        </div>
+        <div class="reg-form__field">
+          <p>Ваш пол:</p>
+          <div class="reg-form__radio-groups">
+            <div class="reg-form__radio-group">
+              <label for="female" class="reg-form__label">Женский</label>
+              <input
+                type="radio"
+                value="female"
+                name="sex"
+                id="female"
+                class="reg-form__input reg-form__input--radio"
+                checked
+              />
+            </div>
+            <div class="reg-form__radio-group">
+              <label for="male" class="reg-form__label">Мужской</label>
+              <input
+                type="radio"
+                value="male"
+                name="sex"
+                id="male"
+                class="reg-form__input reg-form__input--radio"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="reg-form__field">
+          <label for="occupation" class="reg-form__label"
+            >Ваша профессия:</label
+          >
+          <select
+            name="occupation"
+            id="occupationSelect"
+            class="reg-form__input reg-form__select"
+            required
+          >
+            <option value="" class="reg-form__option" hidden disabled selected>
+              Выберете Вашу профессию
+            </option>
+            <option value="doctor" class="reg-form__option">
+              Медицинский работник
+            </option>
+            <option value="programmer" class="reg-form__option">
+              Программист
+            </option>
+            <option value="teacher" class="reg-form__option">
+              Работник в сфере образования
+            </option>
+            <option value="designer" class="reg-form__option">Дизайнер</option>
+            <option value="engineer" class="reg-form__option">Инженер</option>
+            <option value="salesperson" class="reg-form__option">
+              Работник в сфере продаж
+            </option>
+            <option value="other" class="reg-form__option">Другое</option>
+          </select>
+        </div>
+        <div class="reg-form__field">
+          <label for="pass1" class="reg-form__label">Пароль:</label>
+          <input
+            type="password"
+            name="pass1"
+            id="pass1"
+            class="reg-form__input"
+            placeholder="Придумайте пароль"
+            minlength="8"
+            pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[1-9]).{8,}$"
+            required
+          />
+        </div>
+        <div class="reg-form__field">
+          <label for="pass2" class="reg-form__label"
+            >Подтверждение пароля:</label
+          >
+          <input
+            type="password"
+            name="pass2"
+            id="pass2"
+            class="reg-form__input"
+            placeholder="Подтвердите пароль"
+            minlength="8"
+            pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[1-9]).{8,}$"
+            required
+          />
+        </div>
+        <div class="reg-form__field reg-form__field--row">
+          <input
+            type="checkbox"
+            name="consent"
+            id="consent"
+            class="reg-form__input reg-form__input--checkbox"
+            required
+          />
+          <label for="consent" class="reg-form__label"
+            >Я соглашаюсь на обработку персональных данных</label
+          >
+        </div>
+        <button type="submit" disabled>Зарегистрироваться</button>
+      </form>
+    </main>
   </body>
 </html>
