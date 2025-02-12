@@ -23,6 +23,7 @@
             autocomplete="name"
             required
           />
+          <p class="reg-form__error-msg reg-form__error-msg--name"></p>
         </div>
         <div class="reg-form__field">
           <label for="email" class="reg-form__label"
@@ -37,6 +38,7 @@
             autocomplete="email"
             required
           />
+          <p class="reg-form__error-msg reg-form__error-msg--email"></p>
         </div>
         <div class="reg-form__field">
           <label for="age" class="reg-form__label">Ваш возраст:</label>
@@ -48,7 +50,9 @@
             placeholder="Введите Ваш возраст"
             min="1"
             max="110"
+            pattern="^[1-9]{1,3}$"
           />
+          <p class="reg-form__error-msg reg-form__error-msg--age"></p>
         </div>
         <div class="reg-form__field">
           <p>Ваш пол:</p>
@@ -105,6 +109,7 @@
             </option>
             <option value="other" class="reg-form__option">Другое</option>
           </select>
+          <p class="reg-form__error-msg reg-form__error-msg--occupation"></p>
         </div>
         <div class="reg-form__field">
           <label for="pass1" class="reg-form__label">Пароль:</label>
@@ -119,6 +124,21 @@
             autocomplete="new-password"
             required
           />
+          <p class="reg-form__error-msg reg-form__error-msg--pass"></p>
+          <ul class="reg-form__tips">
+            <li class="reg-form__pass-tip">
+              Пароль должен содержать не менее 8 знаков
+            </li>
+            <li class="reg-form__tip">
+              Пароль должен содержать хотя бы 1 заглавную букву
+            </li>
+            <li class="reg-form__pass-tip done">
+              Пароль должен содержать хотя бы 1 строчную букву
+            </li>
+            <li class="reg-form__pass-tip">
+              Пароль должен содержать хотя бы 1 цифру
+            </li>
+          </ul>
         </div>
         <div class="reg-form__field">
           <label for="pass2" class="reg-form__label"
@@ -135,19 +155,24 @@
             autocomplete="new-password"
             required
           />
+          <p class="reg-form__error-msg reg-form__error-msg--pass"></p>
         </div>
-        <div class="reg-form__field reg-form__field--row">
-          <input
-            type="checkbox"
-            name="consent"
-            id="consent"
-            class="reg-form__input reg-form__input--checkbox"
-            required
-          />
-          <label for="consent" class="reg-form__label"
-            >Я соглашаюсь на обработку персональных данных</label
-          >
+        <div class="reg-form__field">
+          <div class="reg-form__consent-field">
+            <input
+              type="checkbox"
+              name="consent"
+              id="consent"
+              class="reg-form__input reg-form__input--checkbox"
+              required
+            />
+            <label for="consent" class="reg-form__label"
+              >Я соглашаюсь на обработку персональных данных</label
+            >
+          </div>
+          <p class="reg-form__error-msg reg-form__error-msg--consent"></p>
         </div>
+
         <button type="submit" class="reg-form__btn" disabled>
           Зарегистрироваться
         </button>

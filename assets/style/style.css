@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @import "./normalize.css";
 * {
   margin: 0;
@@ -18,12 +19,21 @@ h6 {
   margin: 0;
 }
 
+ul {
+  padding: 0;
+  margin: 0;
+}
+ul li {
+  list-style: none;
+}
+
 input {
   cursor: pointer;
 }
 
 input:focus {
   outline: none;
+  border: 2px solid rgb(35, 101, 26);
 }
 
 .main {
@@ -55,7 +65,8 @@ input:focus {
   flex-wrap: wrap;
   gap: 10px;
 }
-.reg-form__field--row {
+.reg-form__consent-field {
+  display: flex;
   flex-direction: row;
   align-items: center;
   flex-wrap: nowrap;
@@ -112,4 +123,18 @@ input:focus {
 .reg-form__btn:disabled {
   background-color: rgb(94, 151, 86);
   cursor: default;
+}
+.reg-form__tips, .reg-form__error-msg {
+  align-self: center;
+  font-size: 24px;
+  font-style: italic;
+  color: red;
+}
+
+.done {
+  color: rgb(94, 151, 86);
+}
+
+.done::before {
+  content: "✓";
 }
