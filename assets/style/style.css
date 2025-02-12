@@ -97,3 +97,19 @@ input:focus {
   width: 30px;
   height: 30px;
 }
+.reg-form__input--checkbox:checked, .reg-form__input--radio:checked {
+  accent-color: rgb(35, 101, 26);
+}
+.reg-form__btn {
+  width: 400px;
+  height: 90px;
+  border: none;
+  border-radius: 20px;
+  background-color: rgb(35, 101, 26);
+  color: white;
+  cursor: pointer;
+}
+.reg-form__btn:disabled {
+  background-color: rgb(94, 151, 86);
+  cursor: default;
+}

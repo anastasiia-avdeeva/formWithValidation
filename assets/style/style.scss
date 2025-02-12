@@ -105,4 +105,24 @@ input:focus {
     width: 30px;
     height: 30px;
   }
+
+  &__input--checkbox:checked,
+  &__input--radio:checked {
+    accent-color: rgb(35, 101, 26);
+  }
+
+  &__btn {
+    width: 400px;
+    height: 90px;
+    border: none;
+    border-radius: 20px;
+    background-color: rgb(35, 101, 26);
+    color: white;
+    cursor: pointer;
+  }
+
+  &__btn:disabled {
+    background-color: rgb(94, 151, 86);
+    cursor: default;
+  }
 }
