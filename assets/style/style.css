@@ -94,8 +94,8 @@ input:focus {
   align-items: center;
 }
 .reg-form__input--radio, .reg-form__input--checkbox {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
 }
 .reg-form__input--checkbox:checked, .reg-form__input--radio:checked {
   accent-color: rgb(35, 101, 26);
