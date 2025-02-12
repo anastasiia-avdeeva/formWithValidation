@@ -138,10 +138,11 @@ input:focus {
 
   &__tips,
   &__error-msg {
+    display: none;
     align-self: center;
     font-size: 24px;
     font-style: italic;
-    color: red;
+    // color: red;
   }
 }
 

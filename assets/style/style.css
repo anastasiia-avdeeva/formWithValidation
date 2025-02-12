@@ -125,10 +125,10 @@ input:focus {
   cursor: default;
 }
 .reg-form__tips, .reg-form__error-msg {
+  display: none;
   align-self: center;
   font-size: 24px;
   font-style: italic;
-  color: red;
 }
 
 .done {
