@@ -20,6 +20,7 @@
             placeholder="Введите Ваше имя"
             minlength="2"
             maxlength="20"
+            autocomplete="name"
             required
           />
         </div>
@@ -33,6 +34,7 @@
             id="email"
             class="reg-form__input"
             placeholder="Введите Ваш email"
+            autocomplete="email"
             required
           />
         </div>
@@ -80,7 +82,7 @@
           >
           <select
             name="occupation"
-            id="occupationSelect"
+            id="occupation"
             class="reg-form__input reg-form__select"
             required
           >
@@ -114,6 +116,7 @@
             placeholder="Придумайте пароль"
             minlength="8"
             pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[1-9]).{8,}$"
+            autocomplete="new-password"
             required
           />
         </div>
@@ -129,6 +132,7 @@
             placeholder="Подтвердите пароль"
             minlength="8"
             pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[1-9]).{8,}$"
+            autocomplete="new-password"
             required
           />
         </div>
