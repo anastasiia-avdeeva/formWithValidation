@@ -3,13 +3,17 @@ const regForm = document.getElementById("regForm");
 const nameInput = document.getElementById("name");
 const emailInput = document.getElementById("email");
 const ageInput = document.getElementById("age");
-const radioBtns = document.querySelectorAll(".reg-form__input--radio");
+const radioGroups = document.querySelectorAll(".reg-form__radio-group");
 const occupationSelect = document.getElementById("occupation");
 const consentCheckbox = document.getElementById("consent");
 
+let sexChecked = false;
+let consentChecked = false;
+
 const nameError = document.getElementById("nameError");
-const emaiError = document.getElementById("emailError");
+const emailError = document.getElementById("emailError");
 const ageError = document.getElementById("ageError");
+const consentError = document.getElementById("consentError");
 
 function checkFirstChar(str) {
   const regex = /^[A-Za-zА-Яа-я]/;
@@ -68,15 +72,15 @@ function validateEmail() {
   valid = true;
 
   if (!email) {
-    pasteMsg(emaiError, "Пожалуйста, введите адрес электронной почты");
-    hideOrShowElem(emaiError, false);
+    pasteMsg(emailError, "Пожалуйста, введите адрес электронной почты");
+    hideOrShowElem(emailError, false);
     valid = false;
   } else if (!regex.test(email)) {
-    pasteMsg(emaiError, "Пожалуйста, введите верный адрес электронной почты");
-    hideOrShowElem(emaiError, false);
+    pasteMsg(emailError, "Пожалуйста, введите верный адрес электронной почты");
+    hideOrShowElem(emailError, false);
     valid = false;
   } else {
-    hideOrShowElem(emaiError);
+    hideOrShowElem(emailError);
   }
   return valid;
 }
@@ -106,6 +110,28 @@ function validateAge() {
   return valid;
 }
 
+function markChecked(evt) {
+  if (evt.target.type === "radio") {
+    sexChecked = true;
+  } else if (evt.target.type === "checkbox") {
+    consentChecked = consentCheckbox.checked;
+    toggleConsentErrorMsg();
+  }
+}
+
+function toggleConsentErrorMsg() {
+  if (consentChecked) {
+    pasteMsg(consentError, "");
+    hideOrShowElem(consentError);
+  } else {
+    pasteMsg(
+      consentError,
+      "При отказе от обработки персональных данных, регистрация невозможна!"
+    );
+    hideOrShowElem(consentError, false);
+  }
+}
+
 function submitForm(evt) {
   evt.preventDefault();
   alert("Данные формы успешно отправлены");
@@ -119,3 +145,8 @@ emailInput.addEventListener("input", () => hideOrShowElem(emailError));
 emailInput.addEventListener("blur", validateEmail);
 ageInput.addEventListener("input", changeAgeOnInput);
 ageInput.addEventListener("blur", validateAge);
+radioGroups.forEach(function (item) {
+  item.addEventListener("input", markChecked);
+});
+consentCheckbox.addEventListener("input", markChecked);
+// occupationSelect.addEventListener("blur", listener)
