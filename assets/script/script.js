@@ -10,8 +10,16 @@ const passTips = document.getElementById("passTips");
 const passRepeatInput = document.getElementById("pass2");
 const consentCheckbox = document.getElementById("consent");
 
-let sexChecked = false;
-let consentChecked = false;
+const formValidity = {
+  name: false,
+  email: false,
+  age: false,
+  sex: false,
+  occupation: false,
+  password: false,
+  passwordRepeat: false,
+  consent: false,
+};
 
 const lengthTip = document.getElementById("length");
 const upperCaseTip = document.getElementById("upperCaseLetter");
@@ -35,7 +43,6 @@ const invalidEmailErrorMsg =
   "Пожалуйста, введите верный адрес электронной почты";
 const noAgeErrorMsg = "Пожалуйста, введите возраст.";
 const invalidAgeErrorMsg = "Возраст не может быть меньше 1 или больше 110.";
-const noSexError = "Пожалуйста, выберете пол";
 const noOccupationErrorMsg = "Пожалуйста, выберете профессию из списка";
 const noPassError = "Пожалуйста, введите пароль";
 const invalidPassError = "Пароль не соответствует требованиям";
@@ -85,7 +92,12 @@ function changeNameOnInput() {
   toggleErrorMsg(valid, nameError, erMsg);
 }
 
-function isNameValid(showErrorMsg = true) {
+function updateValidity(key, isValid) {
+  formValidity[key] = isValid;
+  toggleBtnState();
+}
+
+function isNameValid() {
   const name = nameInput.value;
   let valid;
   let erMsg = "";
@@ -99,14 +111,13 @@ function isNameValid(showErrorMsg = true) {
   } else {
     valid = true;
   }
-  if (showErrorMsg) {
-    toggleErrorMsg(valid, nameError, erMsg);
-  }
 
-  return valid;
+  toggleErrorMsg(valid, nameError, erMsg);
+
+  updateValidity("name", valid);
 }
 
-function isEmailValid(showErrorMsg = true) {
+function isEmailValid() {
   const email = emailInput.value;
   const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   let valid = true;
@@ -122,11 +133,8 @@ function isEmailValid(showErrorMsg = true) {
     valid = true;
   }
 
-  if (showErrorMsg) {
-    toggleErrorMsg(valid, emailError, erMsg);
-  }
-
-  return valid;
+  toggleErrorMsg(valid, emailError, erMsg);
+  updateValidity("email", valid);
 }
 
 function changeAgeOnInput() {
@@ -135,7 +143,7 @@ function changeAgeOnInput() {
   ageInput.value = age.replace(/[^1-9]/g, "");
 }
 
-function isAgeValid(showErrorMsg = true) {
+function isAgeValid() {
   const age = ageInput.value;
   let valid;
   let erMsg = "";
@@ -150,24 +158,23 @@ function isAgeValid(showErrorMsg = true) {
     valid = true;
   }
 
-  if (showErrorMsg) {
-    toggleErrorMsg(valid, ageError, erMsg);
-  }
+  toggleErrorMsg(valid, ageError, erMsg);
 
-  return valid;
+  updateValidity("age", valid);
 }
 
 function markChecked(evt) {
   if (evt.target.type === "radio") {
-    sexChecked = true;
-    toggleErrorMsg(sexChecked, sexError, "");
+    const sexChecked = true;
+    updateValidity("sex", sexChecked);
   } else if (evt.target.type === "checkbox") {
-    consentChecked = consentCheckbox.checked;
+    const consentChecked = consentCheckbox.checked;
     toggleErrorMsg(consentChecked, consentError, noConsentErrorMsg);
+    updateValidity("consent", consentChecked);
   }
 }
 
-function isOccupationValid(showErrorMsg = true) {
+function isOccupationValid() {
   let valid = true;
   let erMsg = "";
 
@@ -176,11 +183,9 @@ function isOccupationValid(showErrorMsg = true) {
     erMsg = noOccupationErrorMsg;
   }
 
-  if (showErrorMsg) {
-    toggleErrorMsg(valid, occupationError, erMsg);
-  }
+  toggleErrorMsg(valid, occupationError, erMsg);
 
-  return valid;
+  updateValidity("occupation", valid);
 }
 
 function markUnmarkTipAsDone(elem, condition) {
@@ -213,7 +218,7 @@ function resetTips() {
   });
 }
 
-function isPassValid(showErrorMsg = true) {
+function isPassValid() {
   const pass = passInput.value;
   let valid;
   let erMsg = "";
@@ -227,19 +232,17 @@ function isPassValid(showErrorMsg = true) {
     valid = true;
   }
 
-  if (showErrorMsg) {
-    toggleErrorMsg(valid, passError, erMsg);
-  }
-
+  toggleErrorMsg(valid, passError, erMsg);
   return valid;
 }
 
 function processPassOnBlur() {
   resetTips();
-  isPassValid();
+  const passValidity = isPassValid();
+  updateValidity("password", passValidity);
 }
 
-function isPassRepeatValid(showErrorMsg = true) {
+function isPassRepeatValid() {
   const pass = passInput.value;
   const passRepeat = passRepeatInput.value;
   let valid;
@@ -255,67 +258,13 @@ function isPassRepeatValid(showErrorMsg = true) {
     valid = true;
   }
 
-  if (showErrorMsg) {
-    toggleErrorMsg(valid, passRepeatError, erMsg);
-  }
+  toggleErrorMsg(valid, passRepeatError, erMsg);
 
-  return valid;
+  updateValidity("passwordRepeat", valid);
 }
 
-function isFormValid(toSubmit = false) {
-  let formValid = true;
-
-  if (!isNameValid(toSubmit)) {
-    btn.setAttribute("disabled", true);
-    formValid = false;
-    if (!toSubmit) return formValid;
-  }
-
-  if (!isEmailValid(toSubmit)) {
-    btn.setAttribute("disabled", true);
-    formValid = false;
-    if (!toSubmit) return formValid;
-  }
-
-  if (!isAgeValid(toSubmit)) {
-    btn.setAttribute("disabled", true);
-    formValid = false;
-    if (!toSubmit) return formValid;
-  }
-
-  if (!sexChecked) {
-    formValid = false;
-    toggleErrorMsg(!sexChecked, sexError, noSexError);
-    btn.setAttribute("disabled", true);
-    if (!toSubmit) return formValid;
-  }
-
-  if (!consentChecked) {
-    formValid = false;
-    toggleErrorMsg(!consentChecked, consentError, noConsentErrorMsg);
-    btn.setAttribute("disabled", true);
-    if (!toSubmit) return formValid;
-  }
-
-  if (!isOccupationValid(toSubmit)) {
-    btn.setAttribute("disabled", true);
-    formValid = false;
-    if (!toSubmit) return formValid;
-  }
-
-  if (!isPassValid(toSubmit)) {
-    btn.setAttribute("disabled", true);
-    formValid = false;
-    if (!toSubmit) return formValid;
-  }
-
-  if (!isPassRepeatValid(toSubmit)) {
-    btn.setAttribute("disabled", true);
-    formValid = false;
-    if (!toSubmit) return formValid;
-  }
-
-  return formValid;
+function isFormValid() {
+  return Object.values(formValidity).every(Boolean);
 }
 
 function toggleBtnState() {
@@ -326,29 +275,12 @@ function toggleBtnState() {
   }
 }
 
-// function submitForm(evt) {
-//   evt.preventDefault();
-//   const formValid = isFormValid(true);
-//   if (formValid) {
-//     alert("Данные успешно отправлены");
-//     regForm.reset();
-//   }
-// }
-
 function submitForm(evt) {
   evt.preventDefault();
-  console.log("here");
-  const formValid = isFormValid(true);
-
-  if (!formValid) {
-    return;
-  }
-
   alert("Данные успешно отправлены");
   regForm.reset();
 }
 
-btn.addEventListener("click", submitForm);
 nameInput.addEventListener("input", changeNameOnInput);
 nameInput.addEventListener("blur", isNameValid);
 
@@ -373,5 +305,4 @@ passRepeatInput.addEventListener("input", () =>
 );
 passRepeatInput.addEventListener("blur", isPassRepeatValid);
 
-regForm.addEventListener("input", toggleBtnState);
 regForm.addEventListener("submit", submitForm);
