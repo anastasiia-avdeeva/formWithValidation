@@ -109,7 +109,7 @@
             </option>
             <option value="other" class="reg-form__option">Другое</option>
           </select>
-          <p class="reg-form__error-msg reg-form__error-msg--occupation"></p>
+          <p class="reg-form__error-msg" id="occupationError"></p>
         </div>
         <div class="reg-form__field">
           <label for="pass1" class="reg-form__label">Пароль:</label>
@@ -124,18 +124,18 @@
             autocomplete="new-password"
             required
           />
-          <p class="reg-form__error-msg reg-form__error-msg--pass"></p>
-          <ul class="reg-form__tips reg-form__pass-tips">
-            <li class="reg-form__pass-tip reg-form__pass-tip1">
+          <p class="reg-form__error-msg" id="pass1Error"></p>
+          <ul class="reg-form__tips" id="passTips">
+            <li class="reg-form__pass-tip" id="length">
               Пароль должен содержать не менее 8 знаков
             </li>
-            <li class="reg-form__pass-tip reg-form__pass-tip2">
+            <li class="reg-form__pass-tip" id="upperCaseLetter">
               Пароль должен содержать хотя бы 1 заглавную букву
             </li>
-            <li class="reg-form__pass-tip done reg-form__pass-tip3">
+            <li class="reg-form__pass-tip" id="lowerCaseLetter">
               Пароль должен содержать хотя бы 1 строчную букву
             </li>
-            <li class="reg-form__pass-tip reg-form__pass-tip4">
+            <li class="reg-form__pass-tip" id="digit">
               Пароль должен содержать хотя бы 1 цифру
             </li>
           </ul>
@@ -155,7 +155,7 @@
             autocomplete="new-password"
             required
           />
-          <p class="reg-form__error-msg reg-form__error-msg--pass"></p>
+          <p class="reg-form__error-msg" id="pass2Error"></p>
         </div>
         <div class="reg-form__field">
           <div class="reg-form__consent-field">
