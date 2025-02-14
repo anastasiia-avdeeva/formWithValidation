@@ -35,13 +35,14 @@ const invalidEmailErrorMsg =
   "Пожалуйста, введите верный адрес электронной почты";
 const noAgeErrorMsg = "Пожалуйста, введите возраст.";
 const invalidAgeErrorMsg = "Возраст не может быть меньше 1 или больше 110.";
-const noConsentErrorMsg =
-  "Пожалуйста, подтвердите согласие на обработку персональных данных.";
+const noSexError = "Пожалуйста, выберете пол";
 const noOccupationErrorMsg = "Пожалуйста, выберете профессию из списка";
 const noPassError = "Пожалуйста, введите пароль";
 const invalidPassError = "Пароль не соответствует требованиям";
 const noRepeatPassError = "Пожалуйста, повторите пароль";
 const invalidRepeatPassError = "Пароли не совпадают";
+const noConsentErrorMsg =
+  "Пожалуйста, подтвердите согласие на обработку персональных данных.";
 
 function checkFirstChar(str) {
   const regex = /^[A-Za-zА-Яа-я]/;
@@ -61,10 +62,11 @@ function hideOrShowElem(elem, hide = true) {
 }
 
 function toggleErrorMsg(condition, element, msg) {
-  pasteMsg(element, msg);
   if (condition) {
+    pasteMsg(element, "");
     hideOrShowElem(element);
   } else {
+    pasteMsg(element, msg);
     hideOrShowElem(element, false);
   }
 }
@@ -83,7 +85,7 @@ function changeNameOnInput() {
   toggleErrorMsg(valid, nameError, erMsg);
 }
 
-function isNameValid() {
+function isNameValid(showErrorMsg = true) {
   const name = nameInput.value;
   let valid;
   let erMsg = "";
@@ -97,12 +99,14 @@ function isNameValid() {
   } else {
     valid = true;
   }
+  if (showErrorMsg) {
+    toggleErrorMsg(valid, nameError, erMsg);
+  }
 
-  toggleErrorMsg(valid, nameError, erMsg);
   return valid;
 }
 
-function isEmailValid() {
+function isEmailValid(showErrorMsg = true) {
   const email = emailInput.value;
   const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
   let valid = true;
@@ -117,7 +121,11 @@ function isEmailValid() {
   } else {
     valid = true;
   }
-  toggleErrorMsg(valid, emailError, erMsg);
+
+  if (showErrorMsg) {
+    toggleErrorMsg(valid, emailError, erMsg);
+  }
+
   return valid;
 }
 
@@ -127,7 +135,7 @@ function changeAgeOnInput() {
   ageInput.value = age.replace(/[^1-9]/g, "");
 }
 
-function isAgeValid() {
+function isAgeValid(showErrorMsg = true) {
   const age = ageInput.value;
   let valid;
   let erMsg = "";
@@ -142,20 +150,24 @@ function isAgeValid() {
     valid = true;
   }
 
-  toggleErrorMsg(valid, ageError, erMsg);
+  if (showErrorMsg) {
+    toggleErrorMsg(valid, ageError, erMsg);
+  }
+
   return valid;
 }
 
 function markChecked(evt) {
   if (evt.target.type === "radio") {
     sexChecked = true;
+    toggleErrorMsg(sexChecked, sexError, "");
   } else if (evt.target.type === "checkbox") {
     consentChecked = consentCheckbox.checked;
     toggleErrorMsg(consentChecked, consentError, noConsentErrorMsg);
   }
 }
 
-function isOccupationValid() {
+function isOccupationValid(showErrorMsg = true) {
   let valid = true;
   let erMsg = "";
 
@@ -164,7 +176,10 @@ function isOccupationValid() {
     erMsg = noOccupationErrorMsg;
   }
 
-  toggleErrorMsg(valid, occupationError, erMsg);
+  if (showErrorMsg) {
+    toggleErrorMsg(valid, occupationError, erMsg);
+  }
+
   return valid;
 }
 
@@ -198,7 +213,7 @@ function resetTips() {
   });
 }
 
-function isPassValid() {
+function isPassValid(showErrorMsg = true) {
   const pass = passInput.value;
   let valid;
   let erMsg = "";
@@ -212,7 +227,10 @@ function isPassValid() {
     valid = true;
   }
 
-  toggleErrorMsg(valid, passError, erMsg);
+  if (showErrorMsg) {
+    toggleErrorMsg(valid, passError, erMsg);
+  }
+
   return valid;
 }
 
@@ -221,7 +239,7 @@ function processPassOnBlur() {
   isPassValid();
 }
 
-function isPassRepeatValid() {
+function isPassRepeatValid(showErrorMsg = true) {
   const pass = passInput.value;
   const passRepeat = passRepeatInput.value;
   let valid;
@@ -237,12 +255,95 @@ function isPassRepeatValid() {
     valid = true;
   }
 
-  toggleErrorMsg(valid, passRepeatError, erMsg);
+  if (showErrorMsg) {
+    toggleErrorMsg(valid, passRepeatError, erMsg);
+  }
+
   return valid;
 }
 
+function isFormValid(toSubmit = false) {
+  let formValid = true;
+
+  if (!isNameValid(toSubmit)) {
+    btn.setAttribute("disabled", true);
+    formValid = false;
+    if (!toSubmit) return formValid;
+  }
+
+  if (!isEmailValid(toSubmit)) {
+    btn.setAttribute("disabled", true);
+    formValid = false;
+    if (!toSubmit) return formValid;
+  }
+
+  if (!isAgeValid(toSubmit)) {
+    btn.setAttribute("disabled", true);
+    formValid = false;
+    if (!toSubmit) return formValid;
+  }
+
+  if (!sexChecked) {
+    formValid = false;
+    toggleErrorMsg(!sexChecked, sexError, noSexError);
+    btn.setAttribute("disabled", true);
+    if (!toSubmit) return formValid;
+  }
+
+  if (!consentChecked) {
+    formValid = false;
+    toggleErrorMsg(!consentChecked, consentError, noConsentErrorMsg);
+    btn.setAttribute("disabled", true);
+    if (!toSubmit) return formValid;
+  }
+
+  if (!isOccupationValid(toSubmit)) {
+    btn.setAttribute("disabled", true);
+    formValid = false;
+    if (!toSubmit) return formValid;
+  }
+
+  if (!isPassValid(toSubmit)) {
+    btn.setAttribute("disabled", true);
+    formValid = false;
+    if (!toSubmit) return formValid;
+  }
+
+  if (!isPassRepeatValid(toSubmit)) {
+    btn.setAttribute("disabled", true);
+    formValid = false;
+    if (!toSubmit) return formValid;
+  }
+
+  return formValid;
+}
+
+function toggleBtnState() {
+  if (isFormValid()) {
+    btn.removeAttribute("disabled");
+  } else {
+    btn.setAttribute("disabled", true);
+  }
+}
+
+// function submitForm(evt) {
+//   evt.preventDefault();
+//   const formValid = isFormValid(true);
+//   if (formValid) {
+//     alert("Данные успешно отправлены");
+//     regForm.reset();
+//   }
+// }
+
 function submitForm(evt) {
   evt.preventDefault();
+  console.log("here");
+  const formValid = isFormValid(true);
+
+  if (!formValid) {
+    return;
+  }
+
   alert("Данные успешно отправлены");
   regForm.reset();
 }
@@ -271,3 +372,6 @@ passRepeatInput.addEventListener("input", () =>
   toggleErrorMsg(true, passRepeatError, "")
 );
 passRepeatInput.addEventListener("blur", isPassRepeatValid);
+
+regForm.addEventListener("input", toggleBtnState);
+regForm.addEventListener("submit", submitForm);
